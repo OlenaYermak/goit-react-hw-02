@@ -23,7 +23,15 @@ export default function App() {
     });
   };
 
-  const totalFeedback = feedback.good+ feedback.neutral + feedback.bad;
+  const totalFeedback = feedback.good + feedback.neutral + feedback.bad;
+ 
+ const resetFeedback = () => {
+    setFeedback({
+      good: 0,
+      neutral: 0,
+      bad: 0
+    });
+  };
 
   return (
     <>
@@ -32,11 +40,13 @@ export default function App() {
       <Options nameBtn="Good" feedbackType="good" onUpdate={updateFeedback} />
       <Options nameBtn="Neutral" feedbackType="neutral" onUpdate={updateFeedback}/>
       <Options nameBtn="Bad"  feedbackType="bad" onUpdate={updateFeedback} />
-      <Options nameBtn="Reset" />
-      {totalFeedback <= 0 && <Notification />}
+      {totalFeedback > 0 &&<Options nameBtn="Reset" totalFeedback={totalFeedback} onReset={resetFeedback} />}
+      {totalFeedback > 0 ? (<>
       <Feedback feedbackType="good" count={feedback.good}/>
       <Feedback feedbackType="Neutral" count={feedback.neutral}/>
-      <Feedback feedbackType="Bad" count={feedback.bad}/> 
+        <Feedback feedbackType="Bad" count={feedback.bad} />
+        </>) : (<Notification /> )}
+       
        
       
     </>
