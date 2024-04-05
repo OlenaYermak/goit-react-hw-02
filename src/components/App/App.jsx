@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Description from '../Description/Description'
 import Options from '../Options/Options'
 import Feedback from '../Feedback/Feedback'
@@ -33,6 +33,15 @@ export default function App() {
     });
   };
 
+  const positiveFeedback = Math.round((feedback.good / totalFeedback) * 100);
+
+ 
+
+
+  useEffect(()=>{
+    localStorage.setItem("feedback", JSON.stringify(feedback))
+  } ,[feedback]);
+
   return (
     <>
      
@@ -40,11 +49,13 @@ export default function App() {
       <Options nameBtn="Good" feedbackType="good" onUpdate={updateFeedback} />
       <Options nameBtn="Neutral" feedbackType="neutral" onUpdate={updateFeedback}/>
       <Options nameBtn="Bad"  feedbackType="bad" onUpdate={updateFeedback} />
-      {totalFeedback > 0 &&<Options nameBtn="Reset" totalFeedback={totalFeedback} onReset={resetFeedback} />}
+      <Options nameBtn="Reset" totalFeedback={totalFeedback} onReset={resetFeedback} />
       {totalFeedback > 0 ? (<>
-      <Feedback feedbackType="good" count={feedback.good}/>
+      <Feedback feedbackType="Good" count={feedback.good}/>
       <Feedback feedbackType="Neutral" count={feedback.neutral}/>
         <Feedback feedbackType="Bad" count={feedback.bad} />
+        <Feedback feedbackType="Total" count={totalFeedback} />
+        <Feedback feedbackType="Positive" count={`${positiveFeedback}%`}/>
         </>) : (<Notification /> )}
        
        
