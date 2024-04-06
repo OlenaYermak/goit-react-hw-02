@@ -46,10 +46,7 @@ export default function App() {
     <>
      
       <Description />
-      <Options nameBtn="Good" feedbackType="good" onUpdate={updateFeedback} />
-      <Options nameBtn="Neutral" feedbackType="neutral" onUpdate={updateFeedback}/>
-      <Options nameBtn="Bad"  feedbackType="bad" onUpdate={updateFeedback} />
-      <Options nameBtn="Reset" totalFeedback={totalFeedback} onReset={resetFeedback} />
+      <Options  onUpdate={updateFeedback}  totalFeedback={totalFeedback} onReset={resetFeedback} />
       {totalFeedback > 0 ? (<>
       <Feedback feedbackType="Good" count={feedback.good}/>
       <Feedback feedbackType="Neutral" count={feedback.neutral}/>
